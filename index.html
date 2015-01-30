@@ -3,8 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Algorhythm</title>
+	<link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
-	
+	<nav id="nav-bar">
+		<ul>
+			<li><button class="nav-button">Graph</button></li>
+			<li><button class="nav-button">Grid</button></li>
+			<li><button class="nav-button">Point</button></li>
+		</ul>
+	</nav>
+
+	<div class="page" id="graph-page">
+		<div class="algorithm-panel"></div>
+	</div>
+
+	<div class="page" id="grid-page" hidden>
+		<div class="algorithm-panel"></div>
+	</div>
+
+	<div class="page" id="point-page" hidden>
+		<div class="algorithm-panel"></div>
+	</div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/snap.svg-min.js"></script>
+    <script src="js/graph.js"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>

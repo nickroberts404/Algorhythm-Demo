@@ -1,0 +1,74 @@
+body{
+	overflow: hidden;
+}
+nav{
+	position: fixed;
+	width:100%;
+	display:inline;
+	z-index: 99999;
+	text-align: center;
+}
+nav ul{
+	margin: 20px;
+	list-style: none;
+}
+nav ul li{
+	display: inline-block;
+}
+.nav-button{
+	border: none;
+	background: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 40px;
+	color: #333;
+	padding: 0 15px 0 15px;
+	letter-spacing: 3;
+}
+.nav-button:hover{
+	/*color: #428bca;*/
+	border-bottom:8px solid #428bca;
+}
+.algorithm-panel{
+	position: absolute;
+	right: 30px;
+	height: 400px;
+	width: 300px;
+	top: 100px;
+	background:rgba(20, 20, 20, 0.5);
+	border-radius: 5px;
+}
+.page{
+	position: absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+}
+.graph-node{
+	fill: lightblue;
+	stroke: #666;
+	stroke-width: 3;
+}
+.graph-node:hover{
+	cursor: pointer;
+	/*stroke-width: 6;*/
+}
+.temp-line{
+	stroke: salmon;
+	stroke-width:3;
+}
+.perma-line{
+	stroke: #666;
+	stroke-width:3;
+}
+.perma-line:hover{
+	stroke: salmon;
+	cursor: pointer;
+}
+.start-node{
+	fill: lightgreen;
+}
+.end-node{
+	fill: salmon;
+}
