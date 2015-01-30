@@ -13,7 +13,6 @@ Graph.prototype = {
 		this.nodes.push(new Node(x, y, weight, id));
 		this.nodeIDList.push(id);
 		this.nodeID++;
-		console.log('budung!'+ id);
 		return id;
 	},
 	removeNode: function(id){
@@ -107,6 +106,11 @@ Node.prototype = {
 			if(this.edges[edge].target.id === parseInt(nodeID)) return true;
 		}
 		return false;
+	},
+	update: function(updates){
+		for(update in updates){
+			this[update] = updates[update];
+		}
 	},
 	toString: function(){
 		return 'x: '+this.x+' y: '+this.y+' weight: '+this.weight+' Edge Length: '+this.edges.length;

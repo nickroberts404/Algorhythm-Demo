@@ -9,7 +9,7 @@ nav{
 	text-align: center;
 }
 nav ul{
-	margin: 20px;
+	margin: 10px;
 	list-style: none;
 }
 nav ul li{
@@ -27,7 +27,7 @@ nav ul li{
 }
 .nav-button:hover{
 	/*color: #428bca;*/
-	border-bottom:8px solid #428bca;
+	border-bottom:8px solid salmon;
 }
 .algorithm-panel{
 	position: absolute;
@@ -48,27 +48,22 @@ nav ul li{
 .graph-node{
 	fill: lightblue;
 	stroke: #666;
-	stroke-width: 3;
+	stroke-width: 4;
 }
 .graph-node:hover{
 	cursor: pointer;
+	fill: lightgreen;
 	/*stroke-width: 6;*/
 }
 .temp-line{
-	stroke: salmon;
-	stroke-width:3;
+	stroke: #666;
+	stroke-width:4;
 }
 .perma-line{
 	stroke: #666;
-	stroke-width:3;
+	stroke-width:4;
 }
 .perma-line:hover{
 	stroke: salmon;
 	cursor: pointer;
-}
-.start-node{
-	fill: lightgreen;
-}
-.end-node{
-	fill: salmon;
 }

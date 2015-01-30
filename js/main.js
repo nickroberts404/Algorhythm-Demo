@@ -18,25 +18,7 @@ var GraphDisplay = function(){
 }
 GraphDisplay.prototype = {
 	drawNode: function(x, y){
-		this.tempNodes.circle(x, y, 0).attr({class: "graph-node", id: "node"+this.nodeIndex}).animate({r:30}, 100, mina.easeinout).drag(preDragMove, preDragStart, preDragEnd);
-		this.graph.addNode(x, y, 1);
-		this.nodeIndex++;
-		var self = this;
-		function preDragMove(dx, dy, x, y){self.dragMove(dx, dy, x, y, this)}
-		function preDragStart(x, y){self.dragStart(x, y, this)}
-		function preDragEnd(x, y){self.dragEnd(x, y, this)}
-	},
-	drawStart: function(x, y){
-		this.permaNodes.circle(x, y, 0).attr({id: "node"+this.nodeIndex, class: "graph-node start-node"}).animate({r:30}, 300, mina.easeinout).drag(preDragMove, preDragStart, preDragEnd);
-		this.graph.addNode(x, y, 1);
-		this.nodeIndex++;
-		var self = this;
-		function preDragMove(dx, dy, x, y){self.dragMove(dx, dy, x, y, this)}
-		function preDragStart(x, y){self.dragStart(x, y, this)}
-		function preDragEnd(x, y){self.dragEnd(x, y, this)}
-	},
-	drawEnd: function(x, y){
-		this.permaNodes.circle(x, y, 0).attr({id: "node"+this.nodeIndex, class: "graph-node end-node"}).animate({r:30}, 300, mina.easeinout).drag(preDragMove, preDragStart, preDragEnd);
+		this.tempNodes.circle(x, y, 0).attr({class: "graph-node", id: "node"+this.nodeIndex}).animate({r:10}, 100, mina.easeinout).drag(preDragMove, preDragStart, preDragEnd);
 		this.graph.addNode(x, y, 1);
 		this.nodeIndex++;
 		var self = this;
@@ -66,36 +48,39 @@ GraphDisplay.prototype = {
         }
 
 	},
-	dragStart: function(x, y, node){
+	dragStart: function(nx, ny, node){
 		node.data('origTransform', node.transform().local );
 	},
-	dragEnd: function(x, y, node){
+	dragEnd: function(nx, ny, node){
 		this.isDragging = false;
 		thisID = node.node.id.slice(4);
 		for(neighbor in this.connectedNodes){
         	current = this.connectedNodes[neighbor];
+        	this.graph.disconnectNodes(thisID, current, true);
+        	this.graph.connectNodes(thisID, current, this.getDistance(thisID, current), true);
         	this.drawLineBetweenNodes(thisID, current, true);
         }
         this.tempLines.clear();
 		this.connectedNodes = [];
+		var center = this.getCenter(thisID);
+		this.graph.getNode(thisID).update({
+			x: center[0],
+			y: center[1]
+		})
 	},
 	drawLineBetweenNodes: function(node1ID, node2ID, perma){
-		var node1 = this.snap.select('#node'+node1ID);
-		var node2 = this.snap.select('#node'+node2ID);
-		var bound1 = node1.getBBox();
-		var bound2 = node2.getBBox();
+		var center1 = this.getCenter(node1ID);
+		var center2 = this.getCenter(node2ID);
 		if(perma){
-			this.permaLines.line(bound1.cx, bound1.cy, bound2.cx, bound2.cy).attr({class:"perma-line line"+node1ID+" line"+node2ID});
+			this.permaLines.line(center1[0], center1[1], center2[0], center2[1]).attr({class:"perma-line line"+node1ID+" line"+node2ID});
 		}
 		else{
-			this.tempLines.line(bound1.cx, bound1.cy, bound2.cx, bound2.cy).attr({class:"temp-line line"+node1ID+" line"+node2ID});
+			this.tempLines.line(center1[0], center1[1], center2[0], center2[1]).attr({class:"temp-line line"+node1ID+" line"+node2ID});
 		}
 	},
 	drawLineFromNode: function(node1ID, x, y){
-		var node1 = this.snap.select('#node'+node1ID);
-		var bound1 = node1.getBBox();
-		this.tempLines.line(bound1.cx, bound1.cy, x, y).attr({class:"temp-line"});
-
+		var center1 = this.getCenter(node1ID);
+		this.tempLines.line(center1[0], center1[1], x, y).attr({class:"temp-line"});
 	},
 	startConnect: function(nodeID){
 		this.currentNode = nodeID;
@@ -103,13 +88,14 @@ GraphDisplay.prototype = {
 		this.snap.mousemove(watchMouse);
 		function watchMouse(e){
 			self.tempLines.clear();
-			self.drawLineFromNode(nodeID, e.x, e.y);
+			self.drawLineFromNode(nodeID, e.clientX, e.clientY);
 		}
 	},
 	endConnect: function(nodeID){
 		this.snap.unmousemove();
 		this.tempLines.clear();
-		if(!this.graph.getNode(this.currentNode).isNeighbor(nodeID)){
+		if(nodeID == undefined) return;
+		if(!this.graph.getNode(this.currentNode).isNeighbor(nodeID) && this.currentNode != nodeID){
 			this.drawLineBetweenNodes(this.currentNode, nodeID, true);
 			this.graph.connectNodes(this.currentNode ,nodeID, 1, true);	
 		}
@@ -117,13 +103,25 @@ GraphDisplay.prototype = {
 	deleteLine: function(line, node1, node2){
 		line.remove();
 		this.graph.disconnectNodes(node1, node2, true);
+	},
+	getCenter: function(nodeID){
+		var node = this.snap.select('#node'+nodeID);
+		var bounding = node.getBBox();
+		return [bounding.cx, bounding.cy];
+	},
+	getDistance: function(node1ID, node2ID){
+		var center1 = this.getCenter(node1ID);
+		var center2 = this.getCenter(node2ID);
+		return Math.sqrt(Math.pow(center2[0]-center1[0], 2)+Math.pow(center2[1]-center1[1], 2));
 	}
 
 }
 
 var gd = new GraphDisplay();
-gd.drawStart(200, 200);
-gd.drawEnd(400, 200);
+gd.drawNode(200, 200);
+gd.drawNode(400, 200);
+gd.startConnect(0);
+gd.endConnect(1);
 $('#graph-page').on('mousedown', graphClick);
 $('#graph-page').on('mouseup', graphUnclick);
 
@@ -140,32 +138,32 @@ function graphClick(e){
 		clickx = e.clientX;
 		clicky = e.clientY;
 	}
-	else if(e.target.nodeName == 'svg'){
-		if(connectStatus === 2){
+	else if(connectStatus == 2){
 			gd.endConnect();
-			connectStatus = false;
-		}
-		else gd.drawNode(e.clientX, e.clientY);
+			connectStatus = 0;
+	}
+	else if(e.target.nodeName === 'svg'){
+		gd.drawNode(e.clientX, e.clientY);
 	}
 }
 function graphUnclick(e){
 	if(e.target.nodeName == 'circle'){
 		if(clickx == e.clientX && clicky == e.clientY){
 			if(connectStatus === 1){
-				console.log('Nodes Connected!');
+				// console.log('Nodes Connected!');
 				connectStatus = 0;
 			}
 			else{
-				console.log('No Drag!');
 				connectStatus = 2;
 				gd.startConnect(e.target.id.slice(4));
 			}
 		}
 		else{
-			console.log('Drag!');
+			// console.log('Drag!');
 		}
 	}
 	else if(e.target.nodeName =='line'){
+		if(connectStatus === 2) return;
 		classList = e.target.classList.toString().split(' ');
 		gd.deleteLine(e.target, classList[1].slice(4), classList[2].slice(4));
 	}
