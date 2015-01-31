@@ -50,7 +50,7 @@ Graph.prototype = {
 			aNode.parent = '';
 		}
 	},
-	readPath: function(startingNodeID, endingNodeID){
+	getPath: function(startingNodeID, endingNodeID){
 		console.log('Beginning Path!');
 		var path = [endingNodeID];
 		var child = this.getNode(endingNodeID);
@@ -60,7 +60,7 @@ Graph.prototype = {
 			child = parent;
 			parent = child.parent;
 		}
-		console.log(path.reverse())
+		return(path.reverse())
 	},
 	readNodes: function(){
 		for(node in this.nodes){

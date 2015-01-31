@@ -9,16 +9,17 @@ var GraphDisplay = function(){
 	this.nodeIndex = 0;
 	this.permaLines = this.snap.group();
 	this.tempLines = this.snap.group();
-	this.tempNodes = this.snap.group();
-	this.permaNodes = this.snap.group();
-	this.currentNode = '';
-	this.currentLines = [];
+	this.nodes = this.snap.group();
+	this.currentNode;
 	this.isDragging = false;
 	this.connectedNodes = [];
+	this.startingNode;
+	this.finishingNode;
+	this.pathShowing= false;
 }
 GraphDisplay.prototype = {
 	drawNode: function(x, y){
-		this.tempNodes.circle(x, y, 0).attr({class: "graph-node", id: "node"+this.nodeIndex}).animate({r:10}, 100, mina.easeinout).drag(preDragMove, preDragStart, preDragEnd);
+		this.nodes.circle(x, y, 0).attr({class: "graph-node", id: "node"+this.nodeIndex}).animate({r:10}, 100, mina.easeinout).drag(preDragMove, preDragStart, preDragEnd);
 		this.graph.addNode(x, y, 1);
 		this.nodeIndex++;
 		var self = this;
@@ -97,15 +98,24 @@ GraphDisplay.prototype = {
 		if(nodeID == undefined) return;
 		if(!this.graph.getNode(this.currentNode).isNeighbor(nodeID) && this.currentNode != nodeID){
 			this.drawLineBetweenNodes(this.currentNode, nodeID, true);
-			this.graph.connectNodes(this.currentNode ,nodeID, 1, true);	
+			this.graph.connectNodes(this.currentNode, nodeID, this.getDistance(this.currentNode, nodeID), true);	
 		}
+	},
+	setStart: function(nodeID){
+		this.startingNode = nodeID;
+		this.nodes.select('#node'+nodeID).addClass('starting-node');
+	},
+	setFinish: function(nodeID){
+		this.finishingNode = nodeID;
+		this.nodes.select('#node'+nodeID).addClass('finishing-node');
+
 	},
 	deleteLine: function(line, node1, node2){
 		line.remove();
 		this.graph.disconnectNodes(node1, node2, true);
 	},
 	getCenter: function(nodeID){
-		var node = this.snap.select('#node'+nodeID);
+		var node = this.nodes.select('#node'+nodeID);
 		var bounding = node.getBBox();
 		return [bounding.cx, bounding.cy];
 	},
@@ -113,6 +123,42 @@ GraphDisplay.prototype = {
 		var center1 = this.getCenter(node1ID);
 		var center2 = this.getCenter(node2ID);
 		return Math.sqrt(Math.pow(center2[0]-center1[0], 2)+Math.pow(center2[1]-center1[1], 2));
+	},
+	findPath: function(){
+		var results = this.graph.breadthFirst(this.startingNode, this.finishingNode);
+		if(!results){
+			return false;
+		}
+		else{
+			this.pathShowing = true;
+			for(var i=0; i<results.length-1; i++){
+				var thisNode = results[i];
+				var nextNode = results[i+1];
+				var connectingLine = this.permaLines.select('.line'+thisNode+'.line'+nextNode);
+				connectingLine.addClass('path-line');
+				this.nodes.select('#node'+thisNode).addClass('path-node');
+				this.nodes.select('#node'+nextNode).addClass('path-node');
+			}
+			return true;
+		}
+	},
+	erasePath: function(){
+		if(!this.pathShowing) return;
+		var pathLines = this.permaLines.selectAll('.path-line').items;
+		var pathNodes = this.nodes.selectAll('.path-node').items;
+		var startNode = this.nodes.selectAll('.starting-node').items;
+		var finishNode = this.nodes.selectAll('.finishing-node').items;
+		removeClasses(pathLines, 'path-line');
+		removeClasses(pathNodes, 'path-node');
+		removeClasses(startNode, 'starting-node');
+		removeClasses(finishNode, 'finishing-node');
+		
+		function removeClasses(items, classy){
+			for(item in items){
+				items[item].removeClass(classy);
+			}
+		}
+		this.pathShowing = false;
 	}
 
 }
@@ -129,7 +175,9 @@ var clickx = 0;
 var clicky = 0;
 // 0: no connection activity, 1: Just connected, 2: Connect mode
 var connectStatus = 0;
+var algorithmStatus = 0;
 function graphClick(e){
+	gd.erasePath();
 	if(e.target.nodeName == 'circle'){
 		if(connectStatus === 2){
 			gd.endConnect(e.target.id.slice(4));
@@ -153,6 +201,14 @@ function graphUnclick(e){
 				// console.log('Nodes Connected!');
 				connectStatus = 0;
 			}
+			else if(algorithmStatus===1){
+				gd.setStart(e.target.id.slice(4));
+				chooseFinish();
+			}
+			else if(algorithmStatus === 2){
+				gd.setFinish(e.target.id.slice(4));
+				completePath();
+			}
 			else{
 				connectStatus = 2;
 				gd.startConnect(e.target.id.slice(4));
@@ -167,5 +223,28 @@ function graphUnclick(e){
 		classList = e.target.classList.toString().split(' ');
 		gd.deleteLine(e.target, classList[1].slice(4), classList[2].slice(4));
 	}
+}
+
+$('#breadth-first-btn').on('click', chooseStart);
+function chooseStart(){
+	algorithmStatus = 1;
+	$('#graph-instructions').text('Choose starting node...');
+}
+function chooseFinish(){
+	algorithmStatus = 2;
+	$('#graph-instructions').text('Choose finishing node...');
+}
+function completePath(){
+	var didComplete = gd.findPath();
+	if(didComplete){
+		$('#graph-instructions').text('Here\'s your path!');
+	}
+	else{
+		$('#graph-instructions').text('The path cannot be completed...');
+	}
+	setTimeout(function(){
+		$('#graph-instructions').text('Press to begin!');
+	},3000)
+	algorithmStatus = 0;
 }
 
