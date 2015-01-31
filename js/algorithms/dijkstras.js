@@ -28,11 +28,6 @@ Graph.prototype.dijkstras = function(startingNodeID, endingNodeID){
 			}
 		}
 	}
-	if(targetFound){
-		console.log('The is the path to the ending node.');
-		this.readPath(startingNodeID, endingNodeID);
-	}
-	else{
-		console.log('Sorry, the path cannot be completed.');
-	}
+	if(targetFound) return this.getPath(startingNodeID, endingNodeID);
+	else return false;
 }

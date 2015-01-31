@@ -124,8 +124,10 @@ GraphDisplay.prototype = {
 		var center2 = this.getCenter(node2ID);
 		return Math.sqrt(Math.pow(center2[0]-center1[0], 2)+Math.pow(center2[1]-center1[1], 2));
 	},
-	findPath: function(){
-		var results = this.graph.breadthFirst(this.startingNode, this.finishingNode);
+	findPath: function(algorithm){
+		var results;
+		if(algorithm === 'breadth-first') results = this.graph.breadthFirst(this.startingNode, this.finishingNode);
+		else if(algorithm === 'dijkstras') results = this.graph.dijkstras(this.startingNode, this.finishingNode);
 		if(!results){
 			return false;
 		}
@@ -146,19 +148,21 @@ GraphDisplay.prototype = {
 		if(!this.pathShowing) return;
 		var pathLines = this.permaLines.selectAll('.path-line').items;
 		var pathNodes = this.nodes.selectAll('.path-node').items;
+		this.removeClasses(pathLines, 'path-line');
+		this.removeClasses(pathNodes, 'path-node');
+		this.erasePathMarkers();
+		this.pathShowing = false;
+	},
+	erasePathMarkers: function(){
 		var startNode = this.nodes.selectAll('.starting-node').items;
 		var finishNode = this.nodes.selectAll('.finishing-node').items;
-		removeClasses(pathLines, 'path-line');
-		removeClasses(pathNodes, 'path-node');
-		removeClasses(startNode, 'starting-node');
-		removeClasses(finishNode, 'finishing-node');
-		
-		function removeClasses(items, classy){
-			for(item in items){
-				items[item].removeClass(classy);
-			}
+		this.removeClasses(startNode, 'starting-node');
+		this.removeClasses(finishNode, 'finishing-node');
+	},
+	removeClasses: function(items, classy){
+		for(item in items){
+			items[item].removeClass(classy);
 		}
-		this.pathShowing = false;
 	}
 
 }
@@ -235,12 +239,36 @@ function chooseFinish(){
 	$('#graph-instructions').text('Choose finishing node...');
 }
 function completePath(){
-	var didComplete = gd.findPath();
+	var didComplete = gd.findPath('breadth-first');
 	if(didComplete){
 		$('#graph-instructions').text('Here\'s your path!');
 	}
 	else{
 		$('#graph-instructions').text('The path cannot be completed...');
+		gd.erasePathMarkers();
+	}
+	setTimeout(function(){
+		$('#graph-instructions').text('Press to begin!');
+	},3000)
+	algorithmStatus = 0;
+}
+$('#dijkstras-btn').on('click', chooseStart);
+function chooseStart(){
+	algorithmStatus = 1;
+	$('#graph-instructions').text('Choose starting node...');
+}
+function chooseFinish(){
+	algorithmStatus = 2;
+	$('#graph-instructions').text('Choose finishing node...');
+}
+function completePath(){
+	var didComplete = gd.findPath('dijkstras');
+	if(didComplete){
+		$('#graph-instructions').text('Here\'s your path!');
+	}
+	else{
+		$('#graph-instructions').text('The path cannot be completed...');
+		gd.erasePathMarkers();
 	}
 	setTimeout(function(){
 		$('#graph-instructions').text('Press to begin!');

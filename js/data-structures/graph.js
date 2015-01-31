@@ -26,6 +26,7 @@ Graph.prototype = {
 		var node1 = this.nodes[this.nodeIDList.indexOf(parseInt(id1))];
 		var node2 = this.nodes[this.nodeIDList.indexOf(parseInt(id2))];
 		node1.addEdge(new Edge(node2, weight));
+		console.log(weight);
 		if(undirected){
 			node2.addEdge(new Edge(node1, weight));
 		}
@@ -51,7 +52,6 @@ Graph.prototype = {
 		}
 	},
 	getPath: function(startingNodeID, endingNodeID){
-		console.log('Beginning Path!');
 		var path = [endingNodeID];
 		var child = this.getNode(endingNodeID);
 		var parent = child.parent;

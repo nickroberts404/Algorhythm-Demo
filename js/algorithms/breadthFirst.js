@@ -11,9 +11,8 @@ Graph.prototype.breadthFirst = function(startingNodeID, endingNodeID){
 	frontier.push(startingNodeID);
 	while(frontier.length>0){
 		var currentID = frontier.shift();
-		console.log(this.getNode(currentID));
 		if(currentID == endingNodeID) {
-			foundNode = true;
+			foundTarget = true;
 			break;
 		}
 		var currentNode = this.getNode(currentID);
@@ -26,6 +25,6 @@ Graph.prototype.breadthFirst = function(startingNodeID, endingNodeID){
 			}
 		}
 	}
-	if(foundNode) return this.getPath(startingNodeID, endingNodeID);
+	if(foundTarget) return this.getPath(startingNodeID, endingNodeID);
 	else return false;
 }
