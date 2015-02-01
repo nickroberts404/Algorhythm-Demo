@@ -168,8 +168,33 @@ GraphDisplay.prototype = {
 }
 
 var gd = new GraphDisplay();
-gd.drawNode(200, 200);
-gd.drawNode(400, 200);
+// var startPos = getStartingPosition();
+// function getStartingPosition(){
+// 	var panelOffset = document.getElementById('graph-algorithm').offsetLeft;
+// 	var windowHeight = window.innerHeight;
+// 	console.log(panelOffset);
+// 	var start1x = panelOffset/2;
+// 	var start2x = panelOffset/2;
+// 	if(panelOffset>=1300){
+// 		start1x += 300;
+// 		start2x -= 300;
+// 	}
+// 	else if(panelOffset>= 450){
+// 		start1x += 150;
+// 		start2x -= 150;
+// 	}
+// 	else{
+// 		start1x += 50;
+// 		start2x -= 50;
+// 	}
+// 	var start1y = windowHeight*0.5;
+// 	var start2y = windowHeight*0.5;
+// 	var rad = 150;
+
+// 	return [start1x, start1y, start2x, start2y];
+// }
+gd.drawNode(300, 300);
+gd.drawNode(600, 300);
 gd.startConnect(0);
 gd.endConnect(1);
 $('#graph-page').on('mousedown', graphClick);

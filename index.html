@@ -13,21 +13,35 @@
 			<li><button class="nav-btn">Point</button></li>
 		</ul>
 	</nav>
-
-	<div class="page" id="graph-page">
-		<div class="algorithm-panel">
+	<input type="checkbox" id="menu-toggle" hidden>
+	<div id="control-panel" class="control-panel-close">
+		<div id="controls">
+			<label for="menu-toggle" class="control-btn btn-1" id="open-btn"></label>
+			<button class="control-btn btn-2" id=""></button>
+			<button class="control-btn btn-3" id=""></button>
+			<button class="control-btn btn-4" id=""></button>
+			<button class="control-btn btn-5" id=""></button>
+			<button class="control-btn btn-6" id=""></button>
+			<button class="control-btn btn-7" id=""></button>
+			<button class="control-btn btn-8" id="play-btn"></button>
+			<button class="control-btn btn-9" id="stop-btn"></button>
+		</div>
+		<div id="algorithms">
 			<button class="go-btn" id="breadth-first-btn">Breadth First</button>
 			<button class="go-btn" id="dijkstras-btn">Dijkstra's</button>
 			<div id="graph-instructions">Press to begin!</div>
 		</div>
 	</div>
 
+	<div class="page" id="graph-page">
+	</div>
+
 	<div class="page" id="grid-page" hidden>
-		<div class="algorithm-panel"></div>
+		<div class="algorithm-panel" id="grid-algorithm"></div>
 	</div>
 
 	<div class="page" id="point-page" hidden>
-		<div class="algorithm-panel"></div>
+		<div class="algorithm-panel" id="point-algorithm"></div>
 	</div>
 
 

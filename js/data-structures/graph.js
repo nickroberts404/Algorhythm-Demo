@@ -26,7 +26,7 @@ Graph.prototype = {
 		var node1 = this.nodes[this.nodeIDList.indexOf(parseInt(id1))];
 		var node2 = this.nodes[this.nodeIDList.indexOf(parseInt(id2))];
 		node1.addEdge(new Edge(node2, weight));
-		console.log(weight);
+		// console.log(weight);
 		if(undirected){
 			node2.addEdge(new Edge(node1, weight));
 		}
