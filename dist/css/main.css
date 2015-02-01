@@ -1,4 +1,69 @@
+.switch {
+  display: none; }
+
+#graph-toggle:checked ~ #nav-bar #graph-toggle-btn {
+  border-bottom: 5px solid salmon; }
+
+#grid-toggle:checked ~ #nav-bar #grid-toggle-btn {
+  border-bottom: 5px solid salmon; }
+
+#point-toggle:checked ~ #nav-bar #point-toggle-btn {
+  border-bottom: 5px solid salmon; }
+
+#graph-toggle:checked ~ #graph-page {
+  display: block; }
+
+#grid-toggle:checked ~ #grid-page {
+  display: block; }
+
+#point-toggle:checked ~ #point-page {
+  display: block; }
+
+.graph-node {
+  fill: lightblue;
+  stroke: #666;
+  stroke-width: 3;
+  cursor: pointer; }
+  .graph-node:hover {
+    fill: lightgreen; }
+
+.graph-line {
+  stroke: #666;
+  stroke-width: 3;
+  cursor: pointer; }
+  .graph-line:hover {
+    stroke: salmon; }
+
 body {
-  background: #30CF8B; }
+  overflow: hidden;
+  margin: 0;
+  padding: 0; }
+
+#nav-bar {
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  position: absolute;
+  top: 20; }
+  #nav-bar ul {
+    margin: 0;
+    padding: 0; }
+    #nav-bar ul li {
+      display: inline-block; }
+
+.page {
+  display: none; }
+
+.nav-btn {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 40px;
+  margin: 0;
+  padding: 0 20px 0 20px;
+  color: #666;
+  cursor: pointer; }
+  .nav-btn:hover {
+    border-bottom: 5px solid salmon; }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,0 +1,22 @@
+.switch{
+    display: none;
+}
+#graph-toggle:checked ~ #nav-bar #graph-toggle-btn{
+    @include nav-hover();
+}
+#grid-toggle:checked ~ #nav-bar #grid-toggle-btn{
+    @include nav-hover();
+}
+#point-toggle:checked ~ #nav-bar #point-toggle-btn{
+    @include nav-hover();
+}
+
+#graph-toggle:checked ~ #graph-page{
+    display: block;
+}
+#grid-toggle:checked ~ #grid-page{
+    display: block;
+}
+#point-toggle:checked ~ #point-page{
+    display: block;
+}

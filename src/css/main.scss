@@ -1,3 +1,40 @@
+@import 'presets';
+@import 'switches';
+@import 'graph';
+
 body{
-	background: #30CF8B;
+	overflow: hidden;
+	margin:0;
+    padding:0;
+}
+
+#nav-bar{
+    @include horizontal-center();
+    position: absolute;
+    top: 20;
+    ul{
+        margin:0;
+        padding:0;
+        
+        li{
+            display: inline-block;
+        }
+    }
+}
+
+.page{
+    display: none;
+}
+.nav-btn{
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 40px;
+    margin:0;
+    padding: 0 20px 0 20px;
+    color: $text-color;
+    cursor: pointer;
+    &:hover{
+        @include nav-hover();
+    }
 }

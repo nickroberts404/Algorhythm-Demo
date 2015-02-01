@@ -6,17 +6,28 @@
 	<link rel="stylesheet" href="dist/css/main.css">
 </head>
 <body>
+
+	<input type="checkbox" class="switch" id="menu-toggle">
+    <input type="radio" name="mode" class="switch" id="graph-toggle" checked>
+    <input type="radio" name="mode" class="switch" id="grid-toggle">
+    <input type="radio" name="mode" class="switch" id="point-toggle">
+	
 	<nav id="nav-bar">
 		<ul>
-			<li><button class="nav-btn">Graph</button></li>
-			<li><button class="nav-btn">Grid</button></li>
-			<li><button class="nav-btn">Point</button></li>
+			<li>
+                <label class="nav-btn" id="graph-toggle-btn" for="graph-toggle">Graph</label>
+	        </li>
+			<li>
+                <label class="nav-btn" id="grid-toggle-btn" for="grid-toggle">Grid</label>
+            </li>
+			<li>
+                <label class="nav-btn" id="point-toggle-btn" for="point-toggle">Point</label>
+			</li>
 		</ul>
 	</nav>
 
-	<input type="checkbox" id="menu-toggle" hidden>
 
-	<div id="control-panel" class="control-panel-close">
+	<!-- <div id="control-panel" class="control-panel-close">
 		<div id="controls">
 			<label for="menu-toggle" class="control-btn btn-1" id="open-btn"></label>
 			<button class="control-btn btn-2" id=""></button>
@@ -32,21 +43,23 @@
 			<button class="go-btn" id="breadth-first-btn">Breadth First</button>
 			<button class="go-btn" id="dijkstras-btn">Dijkstra's</button>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="page" id="graph-page">
 	</div>
 
-	<div class="page" id="grid-page" hidden>
+	<div class="page" id="grid-page">
+	    grid-page!
 	</div>
 
-	<div class="page" id="point-page" hidden>
+	<div class="page" id="point-page">
+	    point-page!
 	</div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="dist/js/snap.svg-min.js"></script>
-    <script src="dist/js/algorhytm.js"></script>
-	<script src="dist/js/main.js"></script>
+    <script src="dist/js/algorhythm.js"></script>
+	<script src="dist/js/app.js"></script>
 </body>
 </html>

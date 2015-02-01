@@ -1,0 +1,13 @@
+$border: 1px solid black;
+$text-color: #666;
+$red: salmon;
+$blue: lightblue;
+$green: lightgreen;
+@mixin nav-hover(){
+    border-bottom: 5px solid $red;
+}
+@mixin horizontal-center(){
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}

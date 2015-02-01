@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 			// 	separator: ';',
 			// },
 			js: {
-				src: ['src/js/main.js', 'src/js/graphModule/*.js', 'src/js/gridModule/*.js', 'src/js/pointModule/*.js'],
+				src: ['src/js/main.js','src/js/graphModule/graphDisplay.js','src/js/graphModule/graphController.js','src/js/gridModule/gridDisplay.js','src/js/gridModule/gridController.js','src/js/pointModule/pointDisplay.js','src/js/pointModule/pointController.js'],
 				dest: 'dist/js/app.js'
 			},
 			algorhythm: {

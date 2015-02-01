@@ -1,0 +1,18 @@
+.graph-node{
+	fill: $blue;
+	stroke: $text-color;
+	stroke-width: 3;
+	cursor: pointer;
+	&:hover{
+		fill: $green;
+	}
+}
+
+.graph-line{
+	stroke: $text-color;
+	stroke-width: 3;
+	cursor:pointer;
+	&:hover{
+		stroke: $red;
+	}
+}
