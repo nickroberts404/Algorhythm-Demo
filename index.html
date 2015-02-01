@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Algorhythm</title>
-	<link rel="stylesheet" href="css/stylesheet.css">
+	<link rel="stylesheet" href="dist/css/main.css">
 </head>
 <body>
 	<nav id="nav-bar">
@@ -13,7 +13,9 @@
 			<li><button class="nav-btn">Point</button></li>
 		</ul>
 	</nav>
+
 	<input type="checkbox" id="menu-toggle" hidden>
+
 	<div id="control-panel" class="control-panel-close">
 		<div id="controls">
 			<label for="menu-toggle" class="control-btn btn-1" id="open-btn"></label>
@@ -29,7 +31,6 @@
 		<div id="algorithms">
 			<button class="go-btn" id="breadth-first-btn">Breadth First</button>
 			<button class="go-btn" id="dijkstras-btn">Dijkstra's</button>
-			<div id="graph-instructions">Press to begin!</div>
 		</div>
 	</div>
 
@@ -37,20 +38,15 @@
 	</div>
 
 	<div class="page" id="grid-page" hidden>
-		<div class="algorithm-panel" id="grid-algorithm"></div>
 	</div>
 
 	<div class="page" id="point-page" hidden>
-		<div class="algorithm-panel" id="point-algorithm"></div>
 	</div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/snap.svg-min.js"></script>
-    <script src="js/data-structures/graph.js"></script>
-    <script src="js/data-structures/binaryHeap.js"></script>
-    <script src="js/algorithms/dijkstras.js"></script>
-    <script src="js/algorithms/breadthFirst.js"></script>
-	<script src="js/main.js"></script>
+    <script src="dist/js/snap.svg-min.js"></script>
+    <script src="dist/js/algorhytm.js"></script>
+	<script src="dist/js/main.js"></script>
 </body>
 </html>
