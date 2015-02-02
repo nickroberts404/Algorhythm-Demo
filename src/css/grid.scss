@@ -1,0 +1,10 @@
+.grid-square{
+	fill: transparent;
+	stroke: $text-color;
+	stroke-width: 0.2;
+	cursor: pointer;
+	&:hover{
+		fill: $text-color;
+		fill-opacity: 0.4;
+	}
+}

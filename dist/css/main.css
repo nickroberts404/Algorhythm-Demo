@@ -34,6 +34,15 @@
   .graph-line:hover {
     stroke: salmon; }
 
+.grid-square {
+  fill: transparent;
+  stroke: #666;
+  stroke-width: 0.2;
+  cursor: pointer; }
+  .grid-square:hover {
+    fill: #666;
+    fill-opacity: 0.4; }
+
 body {
   overflow: hidden;
   margin: 0;
