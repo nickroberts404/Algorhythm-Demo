@@ -40,8 +40,26 @@
   stroke-width: 0.2;
   cursor: pointer; }
   .grid-square:hover {
-    fill: #666;
+    fill: salmon;
     fill-opacity: 0.4; }
+
+.type0 {
+  fill: #666;
+  fill-opacity: 0.5; }
+
+.grid-start {
+  fill: lightgreen;
+  fill-opacity: 1.0; }
+  .grid-start:hover {
+    fill: lightgreen;
+    fill-opacity: 1.0; }
+
+.grid-finish {
+  fill: salmon;
+  fill-opacity: 1.0; }
+  .grid-finish:hover {
+    fill: salmon;
+    fill-opacity: 1.0; }
 
 body {
   overflow: hidden;

@@ -5,6 +5,8 @@ var GridDisplay = function(arrayWidth, squareWidth){
 	this.bound = this.snap.getBBox();
 	this.squares = this.snap.group();
 	this.drawGrid(squareWidth);
+	this.start = [0,0];
+	this.finish = [0,0];
 
 }
 GridDisplay.prototype = {
@@ -31,7 +33,29 @@ GridDisplay.prototype = {
 				this.squares.rect(x, y, squareWidth, squareWidth).attr({class: 'grid-square', id: 'coord'+j+'-'+i});
 			}
 		}
+	},
+	paintSquare: function(coord, color){
+		if(color === undefined) color = 0;
+		this.squares.select('#coord'+coord[0]+'-'+coord[1]).addClass('type'+color);
+	},
+	unpaintSquare: function(coord){
+		var square = this.squares.select('#coord'+coord[0]+'-'+coord[1]);
+		var classList = square.node.className.baseVal.split(' ');
+		for(classy in classList){
+			if(classList[classy]!= 'grid-square'){
+				square.removeClass(classList[classy]);
+			}
+		}
+	},
+	setStart: function(coord){
+		this.squares.select('#coord'+this.start[0]+'-'+this.start[1]).removeClass('grid-start');
+		this.squares.select('#coord'+coord[0]+'-'+coord[1]).addClass('grid-start');
+		this.start = coord;
+	},
+	setFinish: function(coord){
+		this.squares.select('#coord'+this.finish[0]+'-'+this.finish[1]).removeClass('grid-finish');
+		this.squares.select('#coord'+coord[0]+'-'+coord[1]).addClass('grid-finish');
+		this.finish = coord;
 	}
-
 
 }

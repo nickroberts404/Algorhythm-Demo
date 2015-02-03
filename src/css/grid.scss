@@ -4,7 +4,27 @@
 	stroke-width: 0.2;
 	cursor: pointer;
 	&:hover{
-		fill: $text-color;
+		fill: $red;
 		fill-opacity: 0.4;
+	}
+}
+.type0{
+	fill: $text-color;
+	fill-opacity: 0.5;
+}
+.grid-start{
+	fill: $green;
+	fill-opacity: 1.0;
+	&:hover{
+		fill: $green;
+		fill-opacity: 1.0;
+	}
+}
+.grid-finish{
+	fill: $red;
+	fill-opacity: 1.0;
+	&:hover{
+		fill: $red;
+		fill-opacity: 1.0;
 	}
 }
