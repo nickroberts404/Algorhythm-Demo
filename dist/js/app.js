@@ -28,6 +28,21 @@ GraphDisplay.prototype = {
 		function preDragEnd(x, y){self.dragEnd(x, y, this)}
 		return this.index-1;
 	},
+	deleteNode: function(node){
+		this.snap.unmousemove();
+    	var edges = this.graph.getNode(node).edges;
+    	for (edge in edges){
+    		this.connectedNodes.push(edges[edge].target.id);
+    	}
+    	for(anode in this.connectedNodes){
+        	var current = this.connectedNodes[anode];
+        	console.log(current);
+        	this.edges.select('.line'+node+'.line'+current).remove();
+        }
+        this.nodes.select('#node'+node).remove();
+        this.graph.removeNode(node);
+        this.connectedNodes = [];
+	},
 	dragMove: function(dx, dy, x, y, node){
 		node.attr({
             transform: node.data('origTransform') + (node.data('origTransform') ? "T" : "t") + [dx, dy]
@@ -42,7 +57,7 @@ GraphDisplay.prototype = {
         	}
         }
         for(anode in this.connectedNodes){
-        	current = this.connectedNodes[anode];
+        	var current = this.connectedNodes[anode];
         	this.edges.select('.line'+this.currentNode+'.line'+current).remove();
         	this.drawEdge(this.currentNode, current);
         }
@@ -104,6 +119,7 @@ GraphDisplay.prototype = {
 		return Math.sqrt(Math.pow(center2.x-center1.x, 2)+Math.pow(center2.y-center1.y, 2));
 	}
 }
+
 var gd = new GraphDisplay();
 var $graphpage = $('#graph-page');
 startPos = startingPoints();
@@ -119,6 +135,7 @@ gd.completeConnection(firstNode, secondNode);
 
 $graphpage.on('mousedown', graphMousedown);
 $graphpage.on('mouseup', graphMouseup);
+$graphpage.on('dblclick', graphDblclick);
 
 var connectNode = null;
 var connectionStatus = 0;
@@ -139,6 +156,10 @@ function graphMousedown(e){
 function graphMouseup(e){
 	if(e.target.nodeName === 'circle') circleMouseup(e);
 	else if(e.target.nodeName === 'svg') svgMouseup(e);
+}
+
+function graphDblclick(e){
+	if(e.target.nodeName === 'circle') deleteNode(e);
 }
 
 function circleMousedown(e){
@@ -207,6 +228,12 @@ function endConnection(e){
 		gd.completeConnection();
 		connectionStatus = 0;
 	}
+}
+
+function deleteNode(e){
+	var nodeID = e.target.id.slice(4);
+	console.log(nodeID);
+	gd.deleteNode(nodeID);
 }
 var GridDisplay = function(arrayWidth, squareWidth){
 	this.snap = s[1];

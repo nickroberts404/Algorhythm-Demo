@@ -135,6 +135,7 @@ Graph.prototype = {
 		return id;
 	},
 	removeNode: function(id){
+		id = parseInt(id);
 		var index = this.nodeIDList.indexOf(id);
 		var node = this.nodes[index];
 		node.removeAllEdges();

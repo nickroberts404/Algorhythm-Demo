@@ -23,6 +23,21 @@ GraphDisplay.prototype = {
 		function preDragEnd(x, y){self.dragEnd(x, y, this)}
 		return this.index-1;
 	},
+	deleteNode: function(node){
+		this.snap.unmousemove();
+    	var edges = this.graph.getNode(node).edges;
+    	for (edge in edges){
+    		this.connectedNodes.push(edges[edge].target.id);
+    	}
+    	for(anode in this.connectedNodes){
+        	var current = this.connectedNodes[anode];
+        	console.log(current);
+        	this.edges.select('.line'+node+'.line'+current).remove();
+        }
+        this.nodes.select('#node'+node).remove();
+        this.graph.removeNode(node);
+        this.connectedNodes = [];
+	},
 	dragMove: function(dx, dy, x, y, node){
 		node.attr({
             transform: node.data('origTransform') + (node.data('origTransform') ? "T" : "t") + [dx, dy]
@@ -37,7 +52,7 @@ GraphDisplay.prototype = {
         	}
         }
         for(anode in this.connectedNodes){
-        	current = this.connectedNodes[anode];
+        	var current = this.connectedNodes[anode];
         	this.edges.select('.line'+this.currentNode+'.line'+current).remove();
         	this.drawEdge(this.currentNode, current);
         }

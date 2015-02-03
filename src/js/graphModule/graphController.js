@@ -1,3 +1,4 @@
+
 var gd = new GraphDisplay();
 var $graphpage = $('#graph-page');
 startPos = startingPoints();
@@ -13,6 +14,7 @@ gd.completeConnection(firstNode, secondNode);
 
 $graphpage.on('mousedown', graphMousedown);
 $graphpage.on('mouseup', graphMouseup);
+$graphpage.on('dblclick', graphDblclick);
 
 var connectNode = null;
 var connectionStatus = 0;
@@ -33,6 +35,10 @@ function graphMousedown(e){
 function graphMouseup(e){
 	if(e.target.nodeName === 'circle') circleMouseup(e);
 	else if(e.target.nodeName === 'svg') svgMouseup(e);
+}
+
+function graphDblclick(e){
+	if(e.target.nodeName === 'circle') deleteNode(e);
 }
 
 function circleMousedown(e){
@@ -101,4 +107,10 @@ function endConnection(e){
 		gd.completeConnection();
 		connectionStatus = 0;
 	}
+}
+
+function deleteNode(e){
+	var nodeID = e.target.id.slice(4);
+	console.log(nodeID);
+	gd.deleteNode(nodeID);
 }
