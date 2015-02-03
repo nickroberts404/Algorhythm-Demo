@@ -40,8 +40,8 @@
   stroke-width: 0.2;
   cursor: pointer; }
   .grid-square:hover {
-    fill: salmon;
-    fill-opacity: 0.4; }
+    fill: #666;
+    fill-opacity: 0.2; }
 
 .type0 {
   fill: #666;
@@ -70,6 +70,11 @@ body {
   left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   position: absolute;
   top: 20; }
   #nav-bar ul {
