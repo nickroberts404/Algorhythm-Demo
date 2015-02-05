@@ -87,10 +87,7 @@ body {
       display: inline-block; }
 
 .page {
-  display: none;
-  width: 100%;
-  z-index: 10000;
-  height: 100%; }
+  display: none; }
 
 .nav-btn {
   border: none;
@@ -103,9 +100,6 @@ body {
   cursor: pointer; }
   .nav-btn:hover {
     border-bottom: 5px solid salmon; }
-
-#graph-page {
-  height: 100%; }
 
 .instruction-panel {
   background: rgba(20, 20, 20, 0.5);
