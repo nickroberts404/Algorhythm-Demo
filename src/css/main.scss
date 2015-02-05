@@ -27,6 +27,7 @@ body{
 .page{
     display: none;
     width:100%;
+    z-index:10000;
     height: 100%;
 }
 .nav-btn{
