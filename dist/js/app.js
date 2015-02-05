@@ -36,7 +36,6 @@ GraphDisplay.prototype = {
     	}
     	for(anode in this.connectedNodes){
         	var current = this.connectedNodes[anode];
-        	console.log(current);
         	this.edges.select('.line'+node+'.line'+current).remove();
         }
         this.nodes.select('#node'+node).remove();

@@ -19,6 +19,9 @@
 #point-toggle:checked ~ #point-page {
   display: block; }
 
+.disabled:hover {
+  border-bottom: 5px solid #666 !important; }
+
 .graph-node {
   fill: lightblue;
   stroke: #666;
@@ -97,5 +100,26 @@ body {
   cursor: pointer; }
   .nav-btn:hover {
     border-bottom: 5px solid salmon; }
+
+.instruction-panel {
+  background: rgba(20, 20, 20, 0.5);
+  height: 330px;
+  border-radius: 10px;
+  width: 250px;
+  top: 20px;
+  padding: 10px;
+  left: 20px;
+  color: white;
+  font-size: 15px;
+  font-family: Arial;
+  position: absolute; }
+  .instruction-panel h3 {
+    text-align: center; }
+  .instruction-panel h4 {
+    padding: 0;
+    margin: 5px 0 0 0; }
+  .instruction-panel p {
+    padding: 0;
+    margin: 5px 0 0 0; }
 
 /*# sourceMappingURL=main.css.map */

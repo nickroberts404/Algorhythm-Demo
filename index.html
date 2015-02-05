@@ -10,7 +10,7 @@
 	<input type="checkbox" class="switch" id="menu-toggle">
     <input type="radio" name="mode" class="switch" id="graph-toggle" checked>
     <input type="radio" name="mode" class="switch" id="grid-toggle">
-    <input type="radio" name="mode" class="switch" id="point-toggle">
+    <input type="radio" name="mode" class="switch" id="point-toggle" disabled>
 	
 	<nav id="nav-bar">
 		<ul>
@@ -21,7 +21,7 @@
                 <label class="nav-btn" id="grid-toggle-btn" for="grid-toggle">Grid</label>
             </li>
 			<li>
-                <label class="nav-btn" id="point-toggle-btn" for="point-toggle">Point</label>
+                <label class="nav-btn disabled" id="point-toggle-btn" for="point-toggle">Point</label>
 			</li>
 		</ul>
 	</nav>
@@ -46,6 +46,19 @@
 	</div> -->
 
 	<div class="page" id="graph-page">
+		<div class="instruction-panel">
+			<h3>How to Use</h3>
+			<h4>Create a Node</h4>
+			<p>Click on white space to create a node.<p>
+			<h4>Delete a Node</h4>
+			<p>Double click an existing node to delete</p>
+			<h4>Connect Nodes</h4>
+			<p>Click on an existing node, and then on the second node.
+			<p>To connect nodes faster, hold <code>shift</code> for a radial pattern, or <code>ctrl</code> to connect consecutive nodes.</p>
+			<p>Click white space to stop connecting.</p>
+			<h4>Delete an Edge</h4>
+			<p>Click on an existing edge</p>
+		</div>
 	</div>
 
 	<div class="page" id="grid-page">

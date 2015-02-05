@@ -20,3 +20,6 @@
 #point-toggle:checked ~ #point-page{
     display: block;
 }
+.disabled:hover{
+	border-bottom: 5px solid $text-color !important;
+}
