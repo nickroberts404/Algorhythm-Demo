@@ -87,7 +87,8 @@ body {
       display: inline-block; }
 
 .page {
-  display: none; }
+  display: none;
+  height: 100vh; }
 
 .nav-btn {
   border: none;
