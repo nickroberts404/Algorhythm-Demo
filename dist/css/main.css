@@ -104,6 +104,9 @@ body {
   .nav-btn:hover {
     border-bottom: 5px solid salmon; }
 
+#graph-page {
+  height: 100%; }
+
 .instruction-panel {
   background: rgba(20, 20, 20, 0.5);
   height: 330px;
